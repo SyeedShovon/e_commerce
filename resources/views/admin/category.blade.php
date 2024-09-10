@@ -2,6 +2,18 @@
 <html>
   <head> 
     @include('admin.css')
+    <style type="text/css">
+        input[type='text']{
+            height: 40px;
+            width: 350px;
+        }
+        .div_deg{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px;
+        }
+    </style>
   </head>
   <body>
     <header class="header">   
@@ -14,10 +26,16 @@
     <div class="page-content">
       <div class="page-header">
         <div class="container-fluid">
-          <h2 class="h5 no-margin-bottom">Dashboard</h2>
+          <h2 class="h5 no-margin-bottom">Category Addition</h2>
         </div>
       </div>
-    @include('admin.body')
+      <div class="div_deg">
+        <form action="{{url('add_category')}}" method="post">
+            @csrf
+            <input type="text" placeholder="Category name" name="category_name_input">
+            <input type="submit" class="btn btn-primary" value="Add Category">
+        </form>
+      </div>
   </div>
     <footer class="footer">
       <div class="footer__block block no-margin-bottom">
