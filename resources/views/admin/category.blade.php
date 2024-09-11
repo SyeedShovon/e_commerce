@@ -19,7 +19,7 @@
           text-align: center;
           margin: auto;
           color: white;
-          width: 300px;
+          width: 400px;
         }
         th{
           background-color: blueviolet;
@@ -60,11 +60,11 @@
         <table>
           <tr>
             <th>Category Name</th>
+            <th>Action</th>
           </tr>
           @if(count($data) == 0)
             <tr>
-              {{-- <td>No data present</td> --}}
-              <td>            
+              <td colspan="2">            
                 <div class="spinner-border text-warning" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div></td>
@@ -73,6 +73,9 @@
             @foreach ($data as $data)
               <tr>
                 <td>{{$data->category_name}}</td>
+                <td>
+                  <a style="margin: 2px" class="btn btn-danger" href="{{url('delete_category',$data->id)}}" onclick="confirmation(event)">Delete</a>
+                </td>
               </tr>
             @endforeach
           @endif
@@ -88,7 +91,7 @@
       </div>
     </footer>
     </div>
-    <!-- JavaScript files-->
+    <!-- JavaScript files--> 
     <script src="{{asset('admincss/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>
     <script src="{{asset('admincss/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -98,7 +101,11 @@
     <script src="{{asset('admincss/js/charts-home.js')}}"></script>
     <script src="{{asset('admincss/js/front.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     @if (Session::has('message'))
         <script>
           toastr.options = {
@@ -107,8 +114,32 @@
           }
           toastr.success("{{Session::get('message')}}", 'Success!',{timeOut:2000})
         </script>
-
-      
     @endif
+
+    <script type="text/javascript">
+      function confirmation(ev){
+        ev.preventDefault();
+        var urlToRedirect = ev.currentTarget.getAttribute('href');
+        // console.log(urlToRedirect);
+
+        swal({
+          title: "Are you sure?",
+          text: "Once deleted, you will not be able to recover this file!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal("File has been deleted!", {
+              icon: "success",
+            });
+            window.location.href = urlToRedirect;
+          }
+        });
+      }
+    </script>
+
+
   </body>
 </html>
