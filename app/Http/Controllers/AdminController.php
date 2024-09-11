@@ -9,7 +9,12 @@ use PhpParser\Builder\Function_;
 class AdminController extends Controller
 {
     public function index(){
-        return view("admin.category");
+
+        $data = Category::all();
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        return view("admin.category",compact('data'));
     }
 
     public function add_category(Request $request){

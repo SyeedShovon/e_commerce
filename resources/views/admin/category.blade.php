@@ -13,6 +13,25 @@
             align-items: center;
             margin: 30px;
         }
+        table{
+          border: 4px solid yellowgreen;
+          margin-top: 40px;
+          text-align: center;
+          margin: auto;
+          color: white;
+          width: 300px;
+        }
+        th{
+          background-color: blueviolet;
+          font-size: 20px;
+          font-weight: bold;
+          padding: 5px;
+          color: white;
+        }
+        td{
+          border: 1px solid white;
+          font-size: 18px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
@@ -37,6 +56,28 @@
             <input type="submit" class="btn btn-primary" value="Add Category">
         </form>
       </div>
+      <div>
+        <table>
+          <tr>
+            <th>Category Name</th>
+          </tr>
+          @if(count($data) == 0)
+            <tr>
+              {{-- <td>No data present</td> --}}
+              <td>            
+                <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div></td>
+            </tr>
+          @else
+            @foreach ($data as $data)
+              <tr>
+                <td>{{$data->category_name}}</td>
+              </tr>
+            @endforeach
+          @endif
+        </table>
+      </div>
   </div>
     <footer class="footer">
       <div class="footer__block block no-margin-bottom">
@@ -57,7 +98,7 @@
     <script src="{{asset('admincss/js/charts-home.js')}}"></script>
     <script src="{{asset('admincss/js/front.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     @if (Session::has('message'))
         <script>
           toastr.options = {
