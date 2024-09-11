@@ -17,6 +17,6 @@ class AdminController extends Controller
         $category->category_name = $request->category_name_input;
         $category->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message','Added successfully');
     }
 }
